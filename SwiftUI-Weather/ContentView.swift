@@ -14,6 +14,22 @@ struct ContentView: View {
                            startPoint: .topLeading,
                            endPoint: .bottomTrailing)
                 .ignoresSafeArea()
+            VStack(spacing: 8) {
+                Text("Boca Raton, FL")
+                    .font(.system(size: 32, weight: .medium))
+                    .foregroundColor(.white)
+                    .padding()
+                Image(systemName: "cloud.sun.fill")
+                    .renderingMode(.original)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 140, height: 140)
+                Text("73°")
+                    .font(.system(size: 70, weight: .medium))
+                    .foregroundColor(.white)
+                
+                Spacer()
+            }
         }
     }
 }
