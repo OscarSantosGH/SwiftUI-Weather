@@ -10,24 +10,12 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         ZStack{
-            LinearGradient(gradient: Gradient(colors: [.blue, Color("lightBlue")]),
-                           startPoint: .topLeading,
-                           endPoint: .bottomTrailing)
-                .ignoresSafeArea()
+            BackgroundView(topColor: .blue, bottomColor: Color("lightBlue"))
             VStack(spacing: 8) {
-                Text("Boca Raton, FL")
-                    .font(.system(size: 32, weight: .medium))
-                    .foregroundColor(.white)
-                    .padding()
-                Image(systemName: "cloud.sun.fill")
-                    .renderingMode(.original)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 140, height: 140)
-                Text("73°")
-                    .font(.system(size: 70, weight: .medium))
-                    .foregroundColor(.white)
-                    .padding(.bottom, 40)
+                CityTextView(title: "Boca Raton, FL")
+                
+                MainWeatherStatusView(imageName: "cloud.sun.fill",
+                                      temperature: 73)
                 
                 HStack(spacing: 20){
                     WeatherDayView(dayOfWeek: "TUE",
@@ -91,5 +79,50 @@ struct WeatherDayView: View {
                 .font(.system(size: 28, weight: .medium))
                 .foregroundColor(.white)
         }
+    }
+}
+
+struct BackgroundView: View {
+    
+    var topColor: Color
+    var bottomColor: Color
+    
+    var body: some View {
+        LinearGradient(gradient: Gradient(colors: [topColor, bottomColor]),
+                       startPoint: .topLeading,
+                       endPoint: .bottomTrailing)
+            .ignoresSafeArea()
+    }
+}
+
+struct CityTextView: View {
+    
+    var title: String
+    
+    var body: some View{
+        Text(title)
+            .font(.system(size: 32, weight: .medium))
+            .foregroundColor(.white)
+            .padding()
+    }
+}
+
+struct MainWeatherStatusView: View{
+    
+    var imageName: String
+    var temperature: Int
+    
+    var body: some View{
+        VStack(spacing: 10){
+            Image(systemName: imageName)
+                .renderingMode(.original)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 140, height: 140)
+            Text("\(temperature)°")
+                .font(.system(size: 70, weight: .medium))
+                .foregroundColor(.white)
+        }
+        .padding(.bottom, 40)
     }
 }
